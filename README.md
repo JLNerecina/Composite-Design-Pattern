@@ -47,49 +47,7 @@ Defines the component interface for the composite structure:
 
 ## UML Class Diagram
 
-```text
-+------------------+
-| EducationalUnit  |<-------------------+
-|------------------|                    |
-| +getStudentCount()|                    |
-| +displayDetails() |                    |
-| +calculateBudget()|                    |
-+------------------+                    |
-         ^                               |
-         |                               |
-+--------+----------+   +-------------+  +---------+
-| University        |   | College     |  | Department |
-|-------------------|   |-------------|  |-----------|
-| -name             |   | -name       |  | -name     |
-| -units            |   | -units      |  | -units    |
-+-------------------+   +-------------+  +-----------+
-| +add(unit)        |   | +add(unit)  |  | +add(unit)|
-| +remove(unit)     |   | +remove(unit)| | +remove(unit)|
-+-------------------+   +-------------+  +-----------+
-          ^                    ^                 ^
-          |                    |                 |
-          +--------------------+-----------------+
-                               |
-                      +--------+--------+
-                      | Teacher         |
-                      |-----------------|
-                      | -name           |
-                      | -subject        |
-                      | -salary         |
-                      +-----------------+
-                      | +calculateBudget() |
-                      +-----------------+
-
-                      +-----------------+
-                      | Student         |
-                      |-----------------|
-                      | -name           |
-                      | -studentId      |
-                      | -tuitionFee     |
-                      +-----------------+
-                      | +calculateBudget() |
-                      +-----------------+
-```
+![Composite Pattern UML Diagram](https://github.com/JLNerecina/Composite-Design-Pattern/blob/main/Composite%20Design%20Pattern%20UML.png)
 
 ## How to Run
 
