@@ -1,80 +1,95 @@
-# Composite Design Pattern - New Era University System
+# 🏛️ Composite Design Pattern: New Era University System
 
-## Overview
+## 🎯 Overview
 
-This Java project implements a university organizational model using the Composite Design Pattern. It represents the hierarchical structure of New Era University, where educational units can be either leaf entities or compositions of other units.
+This repository demonstrates the **Composite Design Pattern** through a university organizational model. By representing the hierarchical structure of **New Era University**, the system treats individual entities (like Teachers and Students) and composed units (like Departments and Colleges) uniformly.
 
-The system models:
-- `University`: the top-level container for colleges
-- `College`: a high-level organizational unit that can contain departments, teachers, students, and sub-colleges
-- `Department`: a subdivision within a college that can contain teachers and students
-- `Teacher`: an individual entity with a name, subject, and salary
-- `Student`: an individual entity with a name, student ID, and tuition fee
+The project effectively models the "part-whole" relationship where a high-level container can perform operations on its children recursively without knowing their specific types.
 
-## Requirements Covered
+---
 
-The project meets the following requirements:
+## 🛠️ System Architecture
 
-- Model the hierarchical "part-whole" relationship using the Composite Pattern.
-- Calculate the number of students for any educational unit.
-- Display details of any educational unit in a clear hierarchical format.
-- Calculate the budget for colleges and departments using the defined budget rules.
+The system is built on a recursive tree structure. Every component implements the `EducationalUnit` interface, allowing the "leaf" nodes and "composite" nodes to be processed via the same API.
 
-## Budget Rules
+### Component Breakdown
 
-- `Teacher` budget = salary
-- `Student` budget = -tuition fee
-- `Department` budget = sum of its children budgets
-- `College` budget = sum of its children budgets
-- `University` budget = sum of its children budgets
+| Entity | Type | Description |
+| --- | --- | --- |
+| **University** | Composite | The top-level root; contains Colleges. |
+| **College** | Composite | High-level unit; can contain Departments, Teachers, or Students. |
+| **Department** | Composite | Subdivision; contains specialized Teachers and Students. |
+| **Teacher** | Leaf | Individual entity with a salary. |
+| **Student** | Leaf | Individual entity with a tuition fee. |
 
-## Classes and Structure
+---
 
-### `EducationalUnit` (interface)
-Defines the component interface for the composite structure:
-- `int getStudentCount()`
-- `void displayDetails(String indent)`
-- `double calculateBudget()`
+## 💰 Budgetary Logic
 
-### Composite classes
-- `University`: can contain `EducationalUnit` children, such as colleges
-- `College`: can contain departments, teachers, students, and other colleges
-- `Department`: can contain teachers and students
+The system calculates financial health using a recursive budget function. We treat salaries as outflows and tuition as inflows.
 
-### Leaf classes
-- `Teacher`: no children, represents an individual instructor
-- `Student`: no children, represents an individual learner
+For any **Leaf** node:
 
-## UML Class Diagram
+* **Teacher:** $Budget = Salary$
+* **Student:** $Budget = -Tuition\_Fee$
 
-![Composite Pattern UML Diagram](https://github.com/JLNerecina/Composite-Design-Pattern/blob/main/Composite%20Design%20Pattern%20UML.png)
+For any **Composite** node (Department, College, or University), the budget is defined as the sum of all its children's budgets:
 
-## How to Run
+$$Budget_{Total} = \sum_{i=1}^{n} Budget(Unit_i)$$
 
-From the project root directory, compile and run the example client:
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+* Java Development Kit (JDK) 8 or higher.
+
+### Compilation & Execution
+
+Navigate to the project root and run the following commands:
 
 ```bash
+# Compile all source files
 javac *.java
+
+# Run the main entry point
 java NewEraUniversitySystem
+
 ```
 
-## Demonstrated Functionality
+---
 
-The `NewEraUniversitySystem` client demonstrates:
-- creating teachers, students, departments, and colleges
-- assembling a university hierarchy
-- displaying the full structure
-- calculating the total number of students in a college or university
-- calculating the total budget for a college or university
+## 📊 UML Class Diagram
 
-## Example Output
+The following diagram illustrates the relationship between the `EducationalUnit` interface and its various implementations.
 
-The sample client prints the university hierarchy, then displays:
-- total students in `New Era University`
-- total budget for `New Era University`
-- total students and budget for `College of Engineering`
+---
 
-## Notes
+## ✨ Key Features Demonstrated
 
-- The project uses plain Java and does not require external libraries.
-- The design follows the Composite Design Pattern, allowing clients to treat individual objects and compositions uniformly.
+* **Hierarchical Scaling:** Easily add new layers (e.g., "Research Lab") without changing existing client code.
+* **Uniform Operations:** Calculate the total student count or budget for the entire University or a single Department using the exact same method call.
+* **Recursive Visualization:** The `displayDetails` method uses an indentation logic to print the tree structure to the console.
+
+> [!TIP]
+> **Why Composite?** > Notice how `NewEraUniversitySystem.java` doesn't care if it's talking to a single `Teacher` or an entire `College`. It just calls `.calculateBudget()` and let the recursion handle the heavy lifting.
+
+---
+
+## 📝 Example Output
+
+Upon execution, the system will output a tree-like structure similar to this:
+
+```text
+[University] New Era University
+  [College] College of Engineering
+    [Department] Computer Science
+      - Teacher: Dr. Smith | Salary: 5000.0
+      - Student: Alice | ID: 101 | Fee: 2000.0
+...
+Total Students in University: 150
+Total Budget for College of Engineering: $12,500.00
+
+```
+
